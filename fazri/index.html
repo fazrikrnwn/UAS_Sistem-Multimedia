@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Multimedia - Analisis Penjualan</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" type="image/x-icon" href="logo-uca.ico">
+</head>
+<body>
+    <div class="container">
+        <header class="dashboard-header">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <div class="university-logo">
+                        <i class="fas fa-university"></i>
+                    </div>
+                </div>
+                <div class="logo-text">
+                    <h1>Sales<span>Vision</span> Pro</h1>
+                    <p>Dashboard Analisis Multimedia Interaktif</p>
+                    <p class="university-info">Fakultas Teknik - Universitas Cendekia Abditama</p>
+                </div>
+            </div>
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="user-details">
+                    <p class="user-name">Mochammad Fazri Marz Kurniawan</p>
+                    <p class="user-role">Teknik Informatika</p>
+                    <p class="user-nim">NIM: 202501001</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="dashboard-controls">
+            <div class="date-filter">
+                <label for="dateRange"><i class="fas fa-calendar-alt"></i> Rentang Waktu:</label>
+                <select id="dateRange">
+                    <option value="monthly">Bulan Terakhir</option>
+                    <option value="quarterly">Triwulan</option>
+                    <option value="yearly" selected>Tahunan</option>
+                </select>
+            </div>
+            <div class="theme-toggle">
+                <button id="themeBtn"><i class="fas fa-moon"></i> Mode Gelap</button>
+            </div>
+            <div class="data-refresh">
+                <button id="refreshBtn"><i class="fas fa-sync-alt"></i> Refresh Data</button>
+            </div>
+        </div>
+
+        <section class="kpi-section">
+            <h2 class="section-title"><i class="fas fa-tachometer-alt"></i> Indikator Kinerja Utama (KPI)</h2>
+            <div class="kpi-grid">
+                <div class="kpi-card revenue">
+                    <div class="kpi-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>Total Pendapatan</h3>
+                        <p class="kpi-value">Rp 4.82 M</p>
+                        <p class="kpi-change positive"><i class="fas fa-arrow-up"></i> 12.5% dari bulan lalu</p>
+                    </div>
+                </div>
+                <div class="kpi-card orders">
+                    <div class="kpi-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>Total Pesanan</h3>
+                        <p class="kpi-value">3,248</p>
+                        <p class="kpi-change positive"><i class="fas fa-arrow-up"></i> 8.2% dari bulan lalu</p>
+                    </div>
+                </div>
+                <div class="kpi-card customers">
+                    <div class="kpi-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>Pelanggan Baru</h3>
+                        <p class="kpi-value">542</p>
+                        <p class="kpi-change positive"><i class="fas fa-arrow-up"></i> 5.7% dari bulan lalu</p>
+                    </div>
+                </div>
+                <div class="kpi-card growth">
+                    <div class="kpi-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>Pertumbuhan</h3>
+                        <p class="kpi-value">18.3%</p>
+                        <p class="kpi-change positive"><i class="fas fa-arrow-up"></i> 2.1% dari target</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="charts-section">
+            <div class="chart-container full-width">
+                <div class="chart-header">
+                    <h3><i class="fas fa-chart-line"></i> Tren Penjualan 12 Bulan Terakhir</h3>
+                    <div class="chart-controls">
+                        <button class="chart-btn active" data-chart="line" data-target="sales">Garis</button>
+                        <button class="chart-btn" data-chart="area" data-target="sales">Area</button>
+                        <button class="chart-btn" data-chart="bar" data-target="sales">Batang</button>
+                        <button class="chart-btn" data-chart="radar" data-target="sales">Radar</button>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="salesChart"></canvas>
+                </div>
+                <div class="chart-footer">
+                    <p><i class="fas fa-info-circle"></i> Tren menunjukkan peningkatan konsisten dengan puncak pada bulan Desember (Rp 800 juta)</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="products-section">
+            <h2 class="section-title"><i class="fas fa-boxes"></i> Analisis Detail Produk</h2>
+            
+            <div class="products-comparison">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-pie"></i> Distribusi Pendapatan per Kategori</h3>
+                        <div class="chart-controls">
+                            <button class="chart-btn active" data-chart="pie" data-target="distribution">Pie</button>
+                            <button class="chart-btn" data-chart="doughnut" data-target="distribution">Donat</button>
+                            <button class="chart-btn" data-chart="polarArea" data-target="distribution">Polar</button>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="distributionChart"></canvas>
+                    </div>
+                    <div class="chart-footer">
+                        <p><i class="fas fa-info-circle"></i> Elektronik mendominasi dengan 42% dari total pendapatan</p>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-bar"></i> Perbandingan Kinerja Produk</h3>
+                        <div class="chart-controls">
+                            <button class="chart-btn active" data-chart="bar" data-target="performance">Vertikal</button>
+                            <button class="chart-btn" data-chart="horizontalBar" data-target="performance">Horizontal</button>
+                            <button class="chart-btn" data-chart="stackedBar" data-target="performance">Stacked</button>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                    <div class="chart-footer">
+                        <p><i class="fas fa-info-circle"></i> Produk Olahraga menunjukkan pertumbuhan tertinggi (18.9%)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="products-details">
+                <div class="table-container">
+                    <h3><i class="fas fa-table"></i> Data Performa Produk per Kategori</h3>
+                    <div class="table-controls">
+                        <div class="table-search">
+                            <input type="text" id="productSearch" placeholder="Cari produk...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <button id="sortProducts" class="table-sort-btn">
+                            <i class="fas fa-sort-amount-down"></i> Urutkan
+                        </button>
+                    </div>
+                    <div class="table-wrapper">
+                        <table id="productTable">
+                            <thead>
+                                <tr>
+                                    <th>Kategori Produk</th>
+                                    <th>Pendapatan (Rp)</th>
+                                    <th>Pertumbuhan</th>
+                                    <th>Market Share</th>
+                                    <th>Rating</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data akan diisi oleh JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-summary">
+                        <div class="summary-item">
+                            <span>Total Kategori:</span>
+                            <strong id="totalCategories">8</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Total Pendapatan:</span>
+                            <strong id="totalRevenue">Rp 4.82 M</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Rata-rata Pertumbuhan:</span>
+                            <strong id="avgGrowth">10.9%</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-ranking">
+                    <h3><i class="fas fa-trophy"></i> Top 5 Produk Terlaris</h3>
+                    <div class="ranking-list" id="topProducts">
+                        <!-- Data akan diisi oleh JavaScript -->
+                    </div>
+                    <div class="product-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h4>Kontribusi Top 5</h4>
+                                <p class="stat-value">68%</p>
+                                <p class="stat-desc">dari total pendapatan</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-arrow-up"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h4>Pertumbuhan Rata-rata</h4>
+                                <p class="stat-value">14.2%</p>
+                                <p class="stat-desc">lebih tinggi 3.3%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-breakdown">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-area"></i> Breakdown Produk per Kuartal</h3>
+                        <div class="chart-controls">
+                            <button class="chart-btn active" data-chart="line" data-target="quarterly">Garis</button>
+                            <button class="chart-btn" data-chart="area" data-target="quarterly">Area</button>
+                            <button class="chart-btn" data-chart="stackedArea" data-target="quarterly">Stacked Area</button>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="quarterlyChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-radar"></i> Analisis Multidimensional Produk</h3>
+                        <div class="chart-controls">
+                            <button class="chart-btn active" data-chart="radar" data-target="radar">Radar</button>
+                            <button class="chart-btn" data-chart="polarArea" data-target="radar">Polar</button>
+                            <button class="chart-btn" data-chart="bubble" data-target="radar">Bubble</button>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-filter">
+                <h3><i class="fas fa-filter"></i> Filter Produk</h3>
+                <div class="filter-controls">
+                    <div class="filter-group">
+                        <label for="categoryFilter"><i class="fas fa-tag"></i> Kategori:</label>
+                        <select id="categoryFilter" multiple>
+                            <option value="all" selected>Semua Kategori</option>
+                            <option value="electronics">Elektronik</option>
+                            <option value="clothing">Pakaian</option>
+                            <option value="food">Makanan & Minuman</option>
+                            <option value="books">Buku & Alat Tulis</option>
+                            <option value="sports">Olahraga & Outdoor</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="growthFilter"><i class="fas fa-chart-line"></i> Pertumbuhan Min:</label>
+                        <div class="range-container">
+                            <input type="range" id="growthFilter" min="0" max="20" value="0">
+                            <span id="growthValue">0%</span>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label for="ratingFilter"><i class="fas fa-star"></i> Rating Min:</label>
+                        <div class="rating-stars" id="ratingFilter">
+                            <i class="fas fa-star" data-value="1"></i>
+                            <i class="fas fa-star" data-value="2"></i>
+                            <i class="fas fa-star" data-value="3"></i>
+                            <i class="fas fa-star" data-value="4"></i>
+                            <i class="fas fa-star" data-value="5"></i>
+                        </div>
+                    </div>
+                    <div class="filter-actions">
+                        <button id="applyFilter" class="filter-btn"><i class="fas fa-check"></i> Terapkan Filter</button>
+                        <button id="resetFilter" class="filter-btn reset"><i class="fas fa-redo"></i> Reset</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="dashboard-actions">
+            <h2 class="section-title"><i class="fas fa-cogs"></i> Aksi Dashboard</h2>
+            <div class="action-buttons">
+                <button class="action-btn export" id="exportBtn">
+                    <i class="fas fa-file-export"></i>
+                    <span>Ekspor Laporan</span>
+                    <small>PDF, Excel, PNG</small>
+                </button>
+                <button class="action-btn print" id="printBtn">
+                    <i class="fas fa-print"></i>
+                    <span>Cetak Dashboard</span>
+                    <small>Printer-friendly</small>
+                </button>
+                <button class="action-btn share" id="shareBtn">
+                    <i class="fas fa-share-alt"></i>
+                    <span>Bagikan</span>
+                    <small>Link dashboard</small>
+                </button>
+                <button class="action-btn help" id="helpBtn">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Bantuan</span>
+                    <small>Panduan penggunaan</small>
+                </button>
+            </div>
+        </section>
+
+        <footer class="dashboard-footer">
+            <div class="footer-info">
+                <div class="university-badge">
+                    <div class="badge-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="badge-text">
+                        <h4>Universitas Cendekia Abditama</h4>
+                        <p>Fakultas Teknik - Program Studi Teknik Informatika</p>
+                    </div>
+                </div>
+                <div class="exam-info">
+                    <p><i class="fas fa-graduation-cap"></i> <strong>Ujian Akhir Semester</strong> - Sistem Multimedia</p>
+                    <p><i class="fas fa-calendar-alt"></i> Semester Ganjil TA 2025/2026</p>
+                    <p><i class="fas fa-clock"></i> Senin, 5 Januari 2026 | 90 Menit</p>
+                    <p><i class="fas fa-user-tie"></i> Dosen: Aliyah, S.Kom., M.T.I</p>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>© 2026 Dashboard Multimedia Interaktif - Dibuat untuk keperluan akademik</p>
+                <p class="disclaimer">Dashboard ini menggunakan data simulasi untuk keperluan demonstrasi sistem multimedia</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal untuk bantuan -->
+    <div id="helpModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-question-circle"></i> Panduan Dashboard Multimedia</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h4><i class="fas fa-info-circle"></i> Tentang Dashboard</h4>
+                    <p>Dashboard ini adalah proyek Ujian Akhir Semester Sistem Multimedia yang menampilkan analisis data penjualan dan performa produk dengan visualisasi interaktif.</p>
+                </div>
+                
+                <div class="modal-section">
+                    <h4><i class="fas fa-chart-bar"></i> Jenis Visualisasi Tersedia</h4>
+                    <div class="chart-types-grid">
+                        <div class="chart-type-item">
+                            <div class="chart-type-icon line">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="chart-type-info">
+                                <h5>Line Chart</h5>
+                                <p>Tren penjualan waktu series</p>
+                            </div>
+                        </div>
+                        <div class="chart-type-item">
+                            <div class="chart-type-icon area">
+                                <i class="fas fa-chart-area"></i>
+                            </div>
+                            <div class="chart-type-info">
+                                <h5>Area Chart</h5>
+                                <p>Volume penjualan area</p>
+                            </div>
+                        </div>
+                        <div class="chart-type-item">
+                            <div class="chart-type-icon bar">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <div class="chart-type-info">
+                                <h5>Bar Chart</h5>
+                                <p>Perbandingan kategori</p>
+                            </div>
+                        </div>
+                        <div class="chart-type-item">
+                            <div class="chart-type-icon radar">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <div class="chart-type-info">
+                                <h5>Radar Chart</h5>
+                                <p>Analisis multidimensi</p>
+                            </div>
+                        </div>
+                        <div class="chart-type-item">
+                            <div class="chart-type-icon pie">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                            <div class="chart-type-info">
+                                <h5>Pie Chart</h5>
+                                <p>Distribusi pendapatan</p>
+                            </div>
+                        </div>
+                        <div class="chart-type-item">
+                            <div class="chart-type-icon polar">
+                                <i class="fas fa-circle-notch"></i>
+                            </div>
+                            <div class="chart-type-info">
+                                <h5>Polar Area</h5>
+                                <p>Visualisasi radial</p>
+                            </div>
+                        </div>
+                        <div class="chart-type-item">
+                            <div class="chart-type-icon stacked">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            <div class="chart-type-info">
+                                <h5>Stacked Bar</h5>
+                                <p>Komposisi bertumpuk</p>
+                            </div>
+                        </div>
+                        <div class="chart-type-item">
+                            <div class="chart-type-icon horizontal">
+                                <i class="fas fa-arrows-alt-h"></i>
+                            </div>
+                            <div class="chart-type-info">
+                                <h5>Horizontal Bar</h5>
+                                <p>Perbandingan horizontal</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-section">
+                    <h4><i class="fas fa-sliders-h"></i> Kontrol Interaktif</h4>
+                    <ul>
+                        <li><strong>Filter Waktu:</strong> Ubah rentang data (bulanan, triwulan, tahunan)</li>
+                        <li><strong>Filter Produk:</strong> Filter berdasarkan kategori, pertumbuhan, dan rating</li>
+                        <li><strong>Tema:</strong> Toggle mode gelap/terang</li>
+                        <li><strong>Jenis Chart:</strong> Ubah tipe visualisasi untuk setiap chart</li>
+                        <li><strong>Refresh Data:</strong> Memperbarui data secara acak untuk simulasi</li>
+                        <li><strong>Pencarian Produk:</strong> Cari produk dalam tabel data</li>
+                        <li><strong>Sorting:</strong> Urutkan data berdasarkan kolom</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-close-btn">Tutup Panduan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal untuk detail produk -->
+    <div id="productModal" class="modal">
+        <div class="modal-content product-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-box-open"></i> Detail Produk</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body" id="productDetail">
+                <!-- Detail produk akan diisi oleh JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Memuat data...</p>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
